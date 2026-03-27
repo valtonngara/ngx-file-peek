@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideFilePreview } from 'ngx-file-preview';
+import { provideFilePreview } from 'ngx-file-peek';
 
 import { routes } from './app.routes';
 

@@ -7,20 +7,20 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-file-preview": {
+    "ngx-file-peek": {
       "projectType": "library",
-      "root": "projects/ngx-file-preview",
-      "sourceRoot": "projects/ngx-file-preview/src",
+      "root": "projects/ngx-file-peek",
+      "sourceRoot": "projects/ngx-file-peek/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-file-preview/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-file-peek/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngx-file-preview/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-file-peek/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -28,12 +28,12 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/ngx-file-preview/tsconfig.spec.json"
+            "tsConfig": "projects/ngx-file-peek/tsconfig.spec.json"
           }
         }
       }
     },
-    "ngx-file-preview-demo": {
+    "ngx-file-peek-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -62,23 +62,23 @@
           "skipTests": true
         }
       },
-      "root": "projects/ngx-file-preview-demo",
-      "sourceRoot": "projects/ngx-file-preview-demo/src",
+      "root": "projects/ngx-file-peek-demo",
+      "sourceRoot": "projects/ngx-file-peek-demo/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/ngx-file-preview-demo/src/main.ts",
-            "tsConfig": "projects/ngx-file-preview-demo/tsconfig.app.json",
+            "browser": "projects/ngx-file-peek-demo/src/main.ts",
+            "tsConfig": "projects/ngx-file-peek-demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/ngx-file-preview-demo/public"
+                "input": "projects/ngx-file-peek-demo/public"
               }
             ],
-            "styles": ["projects/ngx-file-preview-demo/src/styles.scss"]
+            "styles": ["projects/ngx-file-peek-demo/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -108,10 +108,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ngx-file-preview-demo:build:production"
+              "buildTarget": "ngx-file-peek-demo:build:production"
             },
             "development": {
-              "buildTarget": "ngx-file-preview-demo:build:development"
+              "buildTarget": "ngx-file-peek-demo:build:development"
             }
           },
           "defaultConfiguration": "development"

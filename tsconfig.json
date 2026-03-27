@@ -8,7 +8,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "paths": {
-      "ngx-file-preview": ["./dist/ngx-file-preview"]
+      "ngx-file-peek": ["./dist/ngx-file-peek"]
     },
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
@@ -27,13 +27,13 @@
   "files": [],
   "references": [
     {
-      "path": "./projects/ngx-file-preview/tsconfig.lib.json"
+      "path": "./projects/ngx-file-peek/tsconfig.lib.json"
     },
     {
-      "path": "./projects/ngx-file-preview/tsconfig.spec.json"
+      "path": "./projects/ngx-file-peek/tsconfig.spec.json"
     },
     {
-      "path": "./projects/ngx-file-preview-demo/tsconfig.app.json"
+      "path": "./projects/ngx-file-peek-demo/tsconfig.app.json"
     }
   ]
 }

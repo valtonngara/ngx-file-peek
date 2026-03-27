@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FileThumbnailComponent, FilePreviewTooltipDirective } from 'ngx-file-preview';
+import { FileThumbnailComponent, FilePreviewTooltipDirective } from 'ngx-file-peek';
 
 @Component({
   selector: 'app-root',
