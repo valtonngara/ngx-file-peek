@@ -1,59 +1,127 @@
-# NgxFilePreviewWorkspace
+# ngx-file-peek
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+Angular standalone component that renders **file content thumbnails** from any URL — images, PDFs, Word docs, and Excel spreadsheets. Works with any storage: S3, MinIO, Azure Blob, Firebase, or any HTTP link.
 
-## Development server
+## What it does
 
-To start a local development server, run:
+| File Type | Thumbnail Shows |
+|---|---|
+| Images (.jpg, .png, .gif, .webp, .svg) | The actual image |
+| PDF (.pdf) | First page rendered via PDF.js |
+| Word (.doc, .docx) | Document content via mammoth.js |
+| Excel (.xls, .xlsx) | Spreadsheet table via SheetJS |
+| Unknown | Generic file icon |
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Install
 
 ```bash
-ng generate component component-name
+npm install ngx-file-peek @angular/cdk pdfjs-dist mammoth xlsx
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Setup
 
-```bash
-ng generate --help
+```typescript
+// app.config.ts
+import { provideFilePreview } from 'ngx-file-peek';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideFilePreview({
+      pdfWorkerUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.5.207/build/pdf.worker.min.mjs',
+      tooltipDelay: 300,
+    }),
+  ],
+};
 ```
 
-## Building
+## Usage
 
-To build the project run:
+### Grid view — thumbnails showing file content
 
-```bash
-ng build
+```typescript
+import { FileThumbnailComponent } from 'ngx-file-peek';
+
+@Component({
+  imports: [FileThumbnailComponent],
+  template: `
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+      @for (file of files; track file.url) {
+        <fp-file-thumbnail [url]="file.url" size="md" />
+      }
+    </div>
+  `,
+})
+export class MyFilesComponent {
+  files = [
+    { name: 'photo.jpg', url: 'https://my-minio.com/bucket/photo.jpg' },
+    { name: 'report.pdf', url: 'https://s3.amazonaws.com/docs/report.pdf' },
+    { name: 'proposal.docx', url: 'https://storage.example.com/proposal.docx' },
+    { name: 'data.xlsx', url: 'https://api.example.com/files/data.xlsx?token=abc' },
+  ];
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### List view — hover to preview
 
-## Running unit tests
+```typescript
+import { FilePreviewTooltipDirective } from 'ngx-file-peek';
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+@Component({
+  imports: [FilePreviewTooltipDirective],
+  template: `
+    @for (file of files; track file.url) {
+      <div [filePreviewTooltip]="file.url">
+        {{ file.name }}
+      </div>
+    }
+  `,
+})
 ```
 
-## Running end-to-end tests
+### Sizes
 
-For end-to-end (e2e) testing, run:
+| Size | Dimensions |
+|---|---|
+| `sm` | 80 × 80px |
+| `md` | 120 × 120px |
+| `lg` | 200 × 200px |
 
-```bash
-ng e2e
+### Theming
+
+Override CSS custom properties:
+
+```css
+:root {
+  --ngx-fp-border-radius: 8px;
+  --ngx-fp-bg: #ffffff;
+  --ngx-fp-placeholder-bg: #f5f5f5;
+}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## API
 
-## Additional Resources
+### `<fp-file-thumbnail>`
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `url` | `string` | required | File URL from any storage |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Thumbnail size |
+| `tooltip` | `boolean` | `false` | Show preview on hover |
+
+### `[filePreviewTooltip]`
+
+| Input | Type | Description |
+|---|---|---|
+| `filePreviewTooltip` | `string` | File URL to preview on hover |
+
+### `provideFilePreview(config)`
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `pdfWorkerUrl` | `string` | — | URL to PDF.js worker |
+| `tooltipDelay` | `number` | `300` | Tooltip delay in ms |
+| `placeholderTheme` | `'minimal' \| 'branded'` | `'minimal'` | Placeholder style |
+
+## License
+
+MIT

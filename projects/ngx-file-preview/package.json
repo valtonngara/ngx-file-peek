@@ -1,20 +1,20 @@
 {
-  "name": "ngx-file-preview",
+  "name": "ngx-file-peek",
   "version": "1.0.0",
   "description": "Angular component that renders file content thumbnails from any URL (images, PDF, Word, Excel)",
   "author": "valtonngara",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/valtonngara/ngx-file-preview"
+    "url": "https://github.com/valtonngara/ngx-file-peek"
   },
-  "homepage": "https://github.com/valtonngara/ngx-file-preview#readme",
+  "homepage": "https://github.com/valtonngara/ngx-file-peek#readme",
   "bugs": {
-    "url": "https://github.com/valtonngara/ngx-file-preview/issues"
+    "url": "https://github.com/valtonngara/ngx-file-peek/issues"
   },
   "keywords": [
     "angular",
-    "file-preview",
+    "file-peek",
     "thumbnail",
     "pdf-preview",
     "word-preview",
