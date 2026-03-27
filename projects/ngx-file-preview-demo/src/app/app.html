@@ -1,0 +1,17 @@
+<div class="demo-container">
+  <h1>ngx-file-preview Demo</h1>
+  <p class="subtitle">Hover over any thumbnail to see a larger preview tooltip.</p>
+
+  <div class="grid">
+    @for (file of files; track file.url) {
+      <div class="card">
+        <fp-file-thumbnail
+          [url]="file.url"
+          size="md"
+          [filePreviewTooltip]="file.url"
+        />
+        <span class="label">{{ file.label }}</span>
+      </div>
+    }
+  </div>
+</div>

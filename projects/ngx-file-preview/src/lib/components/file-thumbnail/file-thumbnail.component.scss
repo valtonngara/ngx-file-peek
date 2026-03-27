@@ -1,0 +1,10 @@
+:host {
+  display: inline-block;
+}
+
+.thumbnail-wrapper {
+  overflow: hidden;
+  border-radius: var(--ngx-fp-border-radius, 8px);
+  border: 1px solid var(--ngx-fp-border-color, #e2e2e5);
+  background: var(--ngx-fp-bg, #ffffff);
+}

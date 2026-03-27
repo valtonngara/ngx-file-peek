@@ -1,0 +1,21 @@
+<div class="thumbnail-wrapper"
+     [style.width.px]="pixelSize()"
+     [style.height.px]="pixelSize()">
+  @switch (fileType()) {
+    @case ('image') {
+      <fp-image-renderer [url]="url()" [size]="pixelSize()" />
+    }
+    @case ('pdf') {
+      <fp-pdf-renderer [url]="url()" [size]="pixelSize()" />
+    }
+    @case ('word') {
+      <fp-word-renderer [url]="url()" [size]="pixelSize()" />
+    }
+    @case ('excel') {
+      <fp-excel-renderer [url]="url()" [size]="pixelSize()" />
+    }
+    @default {
+      <fp-placeholder-renderer [fileType]="fileType()" [size]="pixelSize()" />
+    }
+  }
+</div>
