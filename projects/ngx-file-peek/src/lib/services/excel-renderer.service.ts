@@ -10,20 +10,28 @@ export class ExcelRendererService {
   async renderToTable(url: string): Promise<SheetData> {
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
-    const XLSX = await import('xlsx');
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-    const firstSheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[firstSheetName];
-    const json: string[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    const ExcelJS = await import('exceljs');
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(arrayBuffer);
+    const sheet = workbook.worksheets[0];
 
-    if (json.length === 0) {
+    if (!sheet || sheet.rowCount === 0) {
       return { headers: [], rows: [] };
     }
 
-    const headers = (json[0] ?? []).map(cell => String(cell ?? ''));
-    const rows = json.slice(1, 20).map(row =>
-      headers.map((_, i) => String(row[i] ?? ''))
-    );
+    const headerRow = sheet.getRow(1);
+    const colCount = headerRow.cellCount;
+    const headers: string[] = [];
+    for (let col = 1; col <= colCount; col++) {
+      headers.push(String(headerRow.getCell(col).value ?? ''));
+    }
+
+    const rows: string[][] = [];
+    const maxRows = Math.min(sheet.rowCount, 20);
+    for (let rowNum = 2; rowNum <= maxRows; rowNum++) {
+      const row = sheet.getRow(rowNum);
+      rows.push(headers.map((_, i) => String(row.getCell(i + 1).value ?? '')));
+    }
 
     return { headers, rows };
   }
