@@ -1,6 +1,6 @@
 {
   "name": "ngx-file-peek",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Angular component that renders file content thumbnails from any URL (images, PDF, Word, Excel)",
   "author": "valtonngara",
   "license": "MIT",
